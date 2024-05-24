@@ -1,28 +1,45 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-// Create a context
-const AuthContext = createContext(null);
+const AuthContext = createContext();
 
-// Custom hook to use the auth context
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
 
-// Provider component that encapsulates your application
 export const AuthProvider = ({ children }) => {
-    const [userToken, setUserToken] = useState(localStorage.getItem('userToken'));
+  const [currentUser, setCurrentUser] = useState(null);
+  const navigate = useNavigate();
 
-    const login = (token) => {
-        localStorage.setItem('userToken', token);
-        setUserToken(token);
-    };
+  useEffect(() => {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      // You may want to validate the token or fetch user details here
+      setCurrentUser(token); // Set user token as currentUser, modify as per your need
+    }
+  }, []);
 
-    const logout = () => {
-        localStorage.removeItem('userToken');
-        setUserToken(null);
-    };
+  const login = (token) => {
+    localStorage.setItem('userToken', token);
+    setCurrentUser(token);
+    navigate('/courses');
+  };
 
-    return (
-        <AuthContext.Provider value={{ userToken, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
+  const logout = () => {
+    localStorage.removeItem('userToken');
+    setCurrentUser(null);
+    navigate('/login');
+  };
+
+  const value = {
+    currentUser,
+    login,
+    logout
+  };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
