@@ -210,7 +210,7 @@ const Quiz = () => {
           <button className="button" onClick={submitTheoryAnswer}>Submit Answer</button>
           {showAnswer[currentQuestionIndex] && (
             <>
-              <p><strong>Evaluation:</strong> {evaluation}</p>
+              <div dangerouslySetInnerHTML={{ __html: evaluation }} />
               <p><strong>Rating:</strong> {rating} out of 10</p>
               <p><strong>Proposed Answer:</strong> {proposedAnswer}</p>
             </>

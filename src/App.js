@@ -11,6 +11,12 @@ import Navigation from './components/Navigation';
 import ForgotPassword from './components/ForgotPassword'; // Import the ForgotPassword component
 import { AuthProvider } from './AuthContext'; 
 import ProtectedRoute from './components/ProtectedRoute';
+import ResetPassword from './components/ResetPassword';
+import ConfirmEmail from './components/ConfirmEmail';  // New component
+
+import AdminDashboard from './components/AdminDashboard'; // Import AdminDashboard
+
+
 
 function App() {
   const [quizSettings, setQuizSettings] = useState({
@@ -26,7 +32,12 @@ function App() {
           <Route path="/" element={<Home updateQuizSettings={setQuizSettings} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Add Forgot Password route */}
+          <Route path="/confirm/:token" element={<ConfirmEmail />} />  
+          <Route path="/admin" element={<AdminDashboard />} /> {/* Add AdminDashboard route */}
+
+
           <Route path="/quiz" element={
             <ProtectedRoute>
               <Quiz {...quizSettings} />

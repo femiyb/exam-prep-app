@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -14,14 +15,27 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('userToken');
     if (token) {
-      // You may want to validate the token or fetch user details here
-      setCurrentUser(token); // Set user token as currentUser, modify as per your need
+      fetchUserDetails(token);
     }
   }, []);
 
+  const fetchUserDetails = async (token) => {
+    try {
+      const response = await axios.get('https://exam-prep-py-9550849aa8ea.herokuapp.com/api/user', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setCurrentUser(response.data); // Set user details as currentUser
+    } catch (error) {
+      console.error('Failed to fetch user details:', error);
+      logout();
+    }
+  };
+
   const login = (token) => {
     localStorage.setItem('userToken', token);
-    setCurrentUser(token);
+    fetchUserDetails(token);
     navigate('/courses');
   };
 

@@ -93,16 +93,55 @@ select {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .section-headers {
-      flex-direction: column;
-      align-items: center;
+  .course-detail-container {
+    padding: 15px;
+    margin: 10px auto;
   }
+
+
   .section-headers span {
-      flex-grow: 1; /* Full width for small screens */
-      min-width: 100%; /* Ensure buttons stretch to fill the container */
-      margin: 5px 0;
+    flex: 0; 
   }
-  .section-content, button {
-      width: 100%;
+
+  .section-headers {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .section-headers span {
+    flex-grow: 1; /* Full width for small screens */
+    min-width: 100%; /* Ensure buttons stretch to fill the container */
+    margin: 5px 0;
+  }
+
+  .section-content, button, select {
+    width: 100%;
+    padding: 10px; /* Adjust padding for better spacing */
+    box-sizing: border-box; /* Ensure padding is included in width */
+  }
+
+  .section-content {
+    margin-top: 15px; /* Adjust margin for better spacing */
+  }
+}
+
+@media (max-width: 480px) {
+  .course-detail-container {
+    padding: 10px;
+    margin: 5px auto;
+  }
+
+  .section-headers span {
+    font-size: 14px; /* Adjust font size for better fit */
+    padding: 10px; /* Adjust padding for better spacing */
+  }
+
+  .section-content p, .section-content ul, .section-content div {
+    font-size: 14px; /* Adjust font size for readability */
+  }
+
+  button {
+    font-size: 14px; /* Adjust font size for buttons */
+    padding: 8px 16px; /* Adjust padding for buttons */
   }
 }

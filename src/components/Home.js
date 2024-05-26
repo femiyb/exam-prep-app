@@ -15,23 +15,40 @@ function Home() {
   return (
     <div className="home-page">
       <div className="home-container">
-        <h1>{getWelcomeMessage()}, welcome to QuizApp!</h1>
-        <p>Enhance your learning through fun and engaging quizzes across various topics.</p>
-        {isAuthenticated && (
-          <Link to="/courses" className="button">Start Learning</Link>
-        )}
-        {!isAuthenticated && (
-        <div className="auth-buttons">
-          <Link to="/login" className="button">Login</Link>
-          <Link to="/register" className="button">Register</Link>
-        </div>
-        )}
-        <p className="motivational-quote">
-          "Knowledge is power. Information is liberating. Education is the premise of progress, in every society, in every family." – Kofi Annan
-        </p>
-        <div className="statistics">
-          <p>Join thousands of users who improve their knowledge daily!</p>
-        </div>
+        <header className="hero-section">
+          <h1>{getWelcomeMessage()}, Welcome to the Exam Practice App!</h1>
+          <p>Your peer-created platform for mastering the BSc IT Honours curriculum through engaging quizzes.</p>
+          {isAuthenticated ? (
+            <Link to="/courses" className="button primary-button">Start Learning</Link>
+          ) : (
+            <div className="auth-buttons">
+              <Link to="/login" className="button primary-button">Login</Link>
+              <Link to="/register" className="button secondary-button">Register</Link>
+            </div>
+          )}
+        </header>
+        <section className="features-section">
+          <h2>Why Use This App?</h2>
+          <div className="features">
+            <div className="feature">
+              <h3>Interactive Quizzes</h3>
+              <p>Test your knowledge with quizzes designed by fellow students to help you learn more effectively.</p>
+            </div>
+            <div className="feature">
+              <h3>Progress Tracking</h3>
+              <p>Monitor your progress and see how much you've improved. Identify your strengths and areas for improvement.</p>
+            </div>
+            <div className="feature">
+              <h3>Comprehensive Coverage</h3>
+              <p>Quizzes cover key topics in the BSc IT Honours curriculum, ensuring you are well-prepared for exams.</p>
+            </div>
+          </div>
+        </section>
+        <section className="quote-section">
+          <p className="motivational-quote">
+            "Knowledge is power. Information is liberating. Education is the premise of progress, in every society, in every family." – Kofi Annan
+          </p>
+        </section>
       </div>
     </div>
   );

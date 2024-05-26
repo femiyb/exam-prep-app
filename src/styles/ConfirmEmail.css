@@ -1,0 +1,11 @@
+.confirm-email-container {
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .confirm-email-container h2 {
+    margin-bottom: 20px;
+  }
+  

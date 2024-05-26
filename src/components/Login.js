@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../AuthContext'; // Adjusted import path
 import '../styles/Login.css';
 
 function Login() {
@@ -9,6 +10,7 @@ function Login() {
   const [error, setError] = useState('');
   const [info, setInfo] = useState(''); // For displaying information messages
   const navigate = useNavigate();
+  const { login } = useAuth(); // Get the login function from the Auth context
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,8 +27,8 @@ function Login() {
       const data = await response.json();
       if (response.ok) {
         console.log('Login successful:', data);
-        localStorage.setItem('userToken', data.access_token);
-        navigate('/courses');
+        login(data.access_token); // Use the login function from the context
+        navigate('/courses'); // Redirect to courses after successful login
       } else {
         console.error('Login failed:', data);
         setError(data.error || 'Login failed, please try again.');
@@ -52,6 +54,7 @@ function Login() {
       if (response.ok) {
         setInfo('Confirmation email resent successfully');
       } else {
+        console.error('Resend failed:', data);
         setError(data.error || 'Failed to resend confirmation email');
       }
     } catch (error) {
@@ -82,7 +85,7 @@ function Login() {
         {error && <p className="error">{error}</p>}
         {info && <p className="info">{info}</p>}
       </form>
-      {error === 'Email not confirmed. Please confirm your email first.' && (
+      {error.includes('Email not confirmed') && (
         <button onClick={handleResendConfirmation}>Resend Confirmation Email</button>
       )}
       <div>
